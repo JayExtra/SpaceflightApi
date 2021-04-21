@@ -7,13 +7,13 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/single_news_card"
-        android:layout_width="383dp"
-        android:layout_height="390dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="32dp"
-        app:cardCornerRadius="5dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="10dp"
         app:cardElevation="4dp"
         app:cardMaxElevation="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,12 +27,12 @@
 
             <ImageView
                 android:id="@+id/article_image_view"
-                android:layout_width="match_parent"
-                android:layout_height="224dp"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="98dp"
+                android:layout_height="105dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_image" />
@@ -43,16 +43,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
                 android:ellipsize="end"
-
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center_vertical"
-                android:maxLines="1"
+                android:lines="2"
+                android:maxLines="5"
                 android:text="Title"
-                android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/article_image_view"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="article title"
                 tools:textColor="#151515" />
 
@@ -61,13 +64,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:text="Date"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/article_image_view"
                 app:layout_constraintTop_toBottomOf="@+id/news_title_text_view"
                 tools:text="date" />
 
@@ -82,24 +84,12 @@
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:text="Publisher"
-                android:textSize="18sp"
+                android:textColor="#3949AB"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/article_image_view"
                 app:layout_constraintTop_toBottomOf="@+id/date_text_view"
                 tools:text="publisher" />
-
-            <View
-                android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_alignBottom="@id/article_image_view"
-                android:layout_marginStart="2dp"
-                android:layout_marginEnd="2dp"
-                android:background="@drawable/gardient"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/article_image_view" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

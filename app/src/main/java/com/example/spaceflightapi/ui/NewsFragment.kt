@@ -15,9 +15,10 @@ import com.example.spaceflightapi.adapters.SpaceflightLoadStateAdapter
 import com.example.spaceflightapi.databinding.NewsFragmentBinding
 import com.example.spaceflightapi.di.AppComponent
 import com.example.spaceflightapi.viewmodels.NewsViewModel
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class NewsFragment : Fragment(R.layout.news_fragment){
+class NewsFragment : DaggerFragment(R.layout.news_fragment){
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -30,7 +31,6 @@ class NewsFragment : Fragment(R.layout.news_fragment){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         _binding = NewsFragmentBinding.bind(view)
 

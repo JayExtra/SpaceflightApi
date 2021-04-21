@@ -15,17 +15,19 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class Repository @Inject constructor(private val spaceFlightAPI: SpaceFlightAPI) {
+class SpaceNewsRepository @Inject constructor(private val spaceFlightAPI: SpaceFlightAPI) {
 
 fun getArticles() =
 
         Pager(
                 config = PagingConfig(
                         pageSize = 20,
-                        maxSize = 30,
+                        maxSize = 60,
                         enablePlaceholders = false
+
                 ),
                 pagingSourceFactory = {ArticlesPagingSource(spaceFlightAPI)}
+
         ).liveData
 
 
@@ -33,7 +35,7 @@ fun getArticles() =
             Pager(
                     config = PagingConfig(
                             pageSize = 20 ,
-                            maxSize = 30 ,
+                            maxSize = 60 ,
                             enablePlaceholders = false
                     ),
                     pagingSourceFactory = {BlogsPagingSource(spaceFlightAPI)}

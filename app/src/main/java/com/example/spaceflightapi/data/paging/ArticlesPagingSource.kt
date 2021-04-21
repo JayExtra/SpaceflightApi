@@ -9,6 +9,7 @@ import java.io.IOException
 import javax.inject.Inject
 
 private const val SPACEFLIGHT_STARTING_PAGE_INDEX = 1
+private const val RESULT_LIMIT = 40
 class ArticlesPagingSource( private val spaceFlightAPI: SpaceFlightAPI) : PagingSource<Int, ArticlesResponse>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArticlesResponse> {
@@ -16,7 +17,7 @@ class ArticlesPagingSource( private val spaceFlightAPI: SpaceFlightAPI) : Paging
         val position = params.key ?: SPACEFLIGHT_STARTING_PAGE_INDEX
 
         return try {
-            val response = spaceFlightAPI.getArticles()
+            val response = spaceFlightAPI.getArticles(RESULT_LIMIT)
 
             LoadResult.Page(
                     data = response ,

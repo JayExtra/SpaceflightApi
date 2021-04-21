@@ -28,6 +28,9 @@ class NewsRecyclerAdapter : PagingDataAdapter<ArticlesResponse , NewsRecyclerAda
             holder.bind(currentItem)
         }
     }
+
+
+
     inner class NewsViewHolder(private val binding : SingleNewsCardBinding) :
             RecyclerView.ViewHolder(binding.root){
 

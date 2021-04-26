@@ -1,7 +1,10 @@
 package com.example.spaceflightapi.ui
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -41,6 +44,8 @@ class AgenciesFragment : DaggerFragment(R.layout.agency_fragment) {
 
         setAgenciesRv()
 
+        setHasOptionsMenu(true)
+
 
     }
 
@@ -60,9 +65,11 @@ class AgenciesFragment : DaggerFragment(R.layout.agency_fragment) {
             )
         }
 
+       // var query = ""
+
         //3. prepare view model and get data
-        viewModel.getAgencies().observe(viewLifecycleOwner) {
-            adapter.submitData(viewLifecycleOwner.lifecycle , it)
+        viewModel.agency.observe(viewLifecycleOwner){
+            adapter.submitData(viewLifecycleOwner.lifecycle,it)
         }
 
         //4.add load state listener to the adapter to handle various loading errors and also show the progressbar when loading new items
@@ -88,5 +95,29 @@ class AgenciesFragment : DaggerFragment(R.layout.agency_fragment) {
             }
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+
+        inflater.inflate(R.menu.agencies_menu , menu)
+
+        val searchItem = menu.findItem(R.id.action_search)
+        val searchView = searchItem.actionView as SearchView
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+               if(query != null){
+                   binding.agenciesRecyclerView.scrollToPosition(0)
+                   viewModel.getAgencies(query)
+                   searchView.clearFocus()
+               }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return true
+            }
+        })
     }
 }

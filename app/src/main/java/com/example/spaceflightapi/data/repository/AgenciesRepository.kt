@@ -10,14 +10,14 @@ import javax.inject.Inject
 
 class AgenciesRepository @Inject constructor(private val agenciesAPI: AgenciesAPI) {
 
-    fun getAgencies() =
+    fun getAgencies(query: String) =
         Pager(
                 config = PagingConfig(
                         pageSize = 20,
                         maxSize = 100,
                         enablePlaceholders = false
                 ),
-                pagingSourceFactory = {AgenciesPagingSource(agenciesAPI)}
+                pagingSourceFactory = {AgenciesPagingSource(agenciesAPI , query)}
         ).liveData
 
 }

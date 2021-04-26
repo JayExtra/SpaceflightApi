@@ -15,32 +15,38 @@ private const val FEATURED = true
 private const val LIMIT = 15
 private val TAG = "Paging Result:"
 
-class AgenciesPagingSource(private val agenciesAPI: AgenciesAPI) : PagingSource<Int , AgenciesList>() {
+class AgenciesPagingSource(private val agenciesAPI: AgenciesAPI,
+                            private val  query : String) : PagingSource<Int , AgenciesList>() {
 
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, AgenciesList> {
 
         val position = params.key ?: AGENCIES_STARTING_PAGE_INDEX
 
-       return  try {
 
-            val response = agenciesAPI.getAgencies(FEATURED , LIMIT)
-            val agency = response.results
+            return  try {
 
-           //Log.d(TAG, "load: ${agency}")
+                val response = agenciesAPI.getAgencies(FEATURED , query, LIMIT)
+                val agency = response.results
 
-            LoadResult.Page(
-                    data = agency ,
-                    prevKey = if(position == AGENCIES_STARTING_PAGE_INDEX) null else position - 1,
-                    nextKey = if(agency.isEmpty()) null else position + 1
-            )
+                //Log.d(TAG, "load: ${agency}")
+
+                LoadResult.Page(
+                        data = agency ,
+                        prevKey = if(position == AGENCIES_STARTING_PAGE_INDEX) null else position - 1,
+                        nextKey = if(agency.isEmpty()) null else position + 1
+                )
 
 
-        }catch (exception : IOException){
-            LoadResult.Error(exception)
-        }catch (httpException : HttpException){
-            LoadResult.Error(httpException)
-        }
+            }catch (exception : IOException){
+                LoadResult.Error(exception)
+            }catch (httpException : HttpException){
+                LoadResult.Error(httpException)
+            }
+
+
+
+
 
     }
     override fun getRefreshKey(state: PagingState<Int, AgenciesList>): Int? {

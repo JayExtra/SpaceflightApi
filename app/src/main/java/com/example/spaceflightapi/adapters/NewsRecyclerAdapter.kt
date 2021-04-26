@@ -1,7 +1,9 @@
 package com.example.spaceflightapi.adapters
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +13,10 @@ import com.example.spaceflightapi.R
 import com.example.spaceflightapi.databinding.NewsFragmentBinding
 import com.example.spaceflightapi.databinding.SingleNewsCardBinding
 import com.example.spaceflightapi.models.ArticlesResponse
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class NewsRecyclerAdapter : PagingDataAdapter<ArticlesResponse , NewsRecyclerAdapter.NewsViewHolder>(ARTICLE_COMPARATOR) {
 
@@ -21,6 +27,7 @@ class NewsRecyclerAdapter : PagingDataAdapter<ArticlesResponse , NewsRecyclerAda
         return NewsViewHolder(binding)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
        val currentItem = getItem(position)
 
@@ -35,7 +42,9 @@ class NewsRecyclerAdapter : PagingDataAdapter<ArticlesResponse , NewsRecyclerAda
             RecyclerView.ViewHolder(binding.root){
 
 
-                fun bind( article : ArticlesResponse){
+               // @RequiresApi(Build.VERSION_CODES.O)
+               @RequiresApi(Build.VERSION_CODES.O)
+               fun bind(article : ArticlesResponse){
 
                     binding.apply {
                         Glide.with(itemView)
@@ -46,7 +55,13 @@ class NewsRecyclerAdapter : PagingDataAdapter<ArticlesResponse , NewsRecyclerAda
                                 .into(articleImageView)
 
                         newsTitleTextView.text= article.title
-                        dateTextView.text = article.publishedAt
+
+                        val date = article.publishedAt
+                        //change to actual date
+                        val simpleDateTimeFormatter = SimpleDateFormat("dd-MM-yyyy", Locale.UK)
+                        val final_date : Date = simpleDateTimeFormatter.parse(date)
+
+                        dateTextView.text = final_date.toString()
                         publisherTextView.text = article.newsSite
                     }
                 }

@@ -9,6 +9,8 @@ interface AgenciesAPI {
     @GET("agencies")
     suspend fun getAgencies(
             @Query("featured")featured : Boolean,
+            @Query("search")search: String,
             @Query("limit")limit:Int
     ): AgenciesResponse
+
 }
